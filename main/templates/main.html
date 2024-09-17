@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% extends 'base.html' %}
+
+    {% block meta %}
     <title>Sole De Luxe</title>
     <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
@@ -49,13 +47,49 @@
         color: #fff; 
     }
     </style>
+    {% endblock meta %}
 </head>
 <body>
 
+    {% block content %} 
     <div class="container">
         <h1>Sole de Luxe</h1>
         <h2>by Aliya Zahira Nadra (2306245863) PBP B</h2>
     </div>
+    
+    <!-- menambahkan ke dalam block content -->
+    ...
+{% if not shoes_entries %}
+<p>Sorry the shoes you are looking for is unavailable.</p>
+{% else %}
+<table>
+  <tr>
+    <th>Shoes Name</th>
+    <th>Price</th>
+    <th>Description</th>
+    <th>Color</th>
+    <th>Condition</th>
+    <th>Release year</th>
+  </tr>
 
-</body>
-</html>
+  {% comment %} Berikut cara memperlihatkan data shoes di bawah baris ini 
+  {% endcomment %} 
+  {% for shoes_entry in shoes_entries %}
+  <tr>
+    <td>{{shoes_entry.name}}</td>
+    <td>{{shoes_entry.price}}</td>
+    <td>{{shoes_entry.description}}</td>
+    <td>{{shoes_entry.color}}</td>
+    <td>{{shoes_entry.condition}}</td>
+    <td>{{shoes_entry.release_year}}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<br />
+
+<a href="{% url 'main:create_shoes_entry' %}">
+  <button>Add New Shoes Entry</button>
+</a>
+{% endblock content %}
