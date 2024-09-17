@@ -1,95 +1,117 @@
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
 
-    {% block meta %}
-    <title>Sole De Luxe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            background-color: #f0f0f0; /* Warna background halaman */
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; 
-        }
-        .container {
-            background-image: url('https://i.pinimg.com/736x/3a/87/a2/3a87a21770cecc45668f450cbf4ded2a.jpg');
-            background-size: cover; /* biar ukuran gambarnya sesuai */
-            background-position: center; /* supaya background nya ditengah */
-            background-repeat: no-repeat; 
-            padding: 50px; /* padding */
-            border-radius: 8px;/* sudut melengkung */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* add shadow */
-            width: 95%; 
-            max-width: 1000px; 
-            height: 600px; /* tinggi container */
-            box-sizing: border-box; /* agar padding tidak melebihi lebar kontainer */
-            color: #fff; /* warna teks putih */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center; /* align text ditengah */
-        }
-        h1 { 
-            font-family: 'Allura', cursive;
-            font-size: 6em; 
-            margin: 0;
-        }
-        h2 {
-        font-family: 'Merriweather', serif; 
-        font-size: 1.5em; 
-        margin: 10px 0 0; 
-        color: #fff; 
+{% block meta %}
+<title>Sole De Luxe</title>
+<!-- import font -->
+<link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        background-color: #f0f0f0; /* Warna background halaman */
+        color: #333;
     }
-    </style>
-    {% endblock meta %}
+    /* SECTION HEADER */
+    .header {
+        background-image: url('https://i.pinimg.com/736x/3a/87/a2/3a87a21770cecc45668f450cbf4ded2a.jpg');
+        background-size: cover; /* biar ukuran gambarnya sesuai */
+        background-position: center; /* agar gambarnya ada ditengah */
+        background-repeat: no-repeat;
+        padding: 50px 20px;
+        text-align: center;
+        color: #fff;
+        border-bottom: 5px solid #fff;
+    }
+    .header h1 {
+        font-family: 'Allura', cursive; /* set font jadi allura */
+        font-size: 4em;
+        margin: 0;
+    }
+    .header h2 {
+        font-family: 'Merriweather', serif; /* set font jadi merriweather */
+        font-size: 1.5em;
+        margin: 10px 0 0;
+    }
+    .content {
+        padding: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    /* TABLE untuk add new shoes entry */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #f4f4f4;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 1em;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock meta %}
 </head>
 <body>
 
-    {% block content %} 
-    <div class="container">
+    {% block content %}
+    <div class="header">
         <h1>Sole de Luxe</h1>
         <h2>by Aliya Zahira Nadra (2306245863) PBP B</h2>
     </div>
     
-    <!-- menambahkan ke dalam block content -->
-    ...
-{% if not shoes_entries %}
-<p>Sorry the shoes you are looking for is unavailable.</p>
-{% else %}
-<table>
-  <tr>
-    <th>Shoes Name</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th>Color</th>
-    <th>Condition</th>
-    <th>Release year</th>
-  </tr>
+    <div class="content">
+        {% if not shoes_entries %}
+        <p>Sorry, the shoes you are looking for are unavailable.</p>
+        {% else %}
+        <table>
+            <tr>
+                <th>Shoes Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Color</th>
+                <th>Condition</th>
+                <th>Release Year</th>
+            </tr>
+            {% for shoes_entry in shoes_entries %}
+            <tr>
+                <td>{{ shoes_entry.name }}</td>
+                <td>{{ shoes_entry.price }}</td>
+                <td>{{ shoes_entry.description }}</td>
+                <td>{{ shoes_entry.color }}</td>
+                <td>{{ shoes_entry.condition }}</td>
+                <td>{{ shoes_entry.release_year }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        
+        <a href="{% url 'main:create_shoes_entry' %}">
+            <button>Add New Shoes Entry</button>
+        </a>
+    </div>
+    {% endblock content %}
 
-  {% comment %} Berikut cara memperlihatkan data shoes di bawah baris ini 
-  {% endcomment %} 
-  {% for shoes_entry in shoes_entries %}
-  <tr>
-    <td>{{shoes_entry.name}}</td>
-    <td>{{shoes_entry.price}}</td>
-    <td>{{shoes_entry.description}}</td>
-    <td>{{shoes_entry.color}}</td>
-    <td>{{shoes_entry.condition}}</td>
-    <td>{{shoes_entry.release_year}}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% endif %}
-
-<br />
-
-<a href="{% url 'main:create_shoes_entry' %}">
-  <button>Add New Shoes Entry</button>
-</a>
-{% endblock content %}
+</body>
+</html>
