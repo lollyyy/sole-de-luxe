@@ -56,9 +56,13 @@ Pertama, tambahkan impor untuk fungsi-fungsi yang telah dibuat sebelumnya, yaitu
 ## Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
 
 ### URL XML
+![Flow Diagram](XML.jpeg)
 
 ### URL XML by ID
+![Flow Diagram](XML_by_ID.jpeg)
 
 ### URL JSON
+![Flow Diagram](JSON.jpeg)
 
 ### URL JSON by ID
+![Flow Diagram](JSON_by_ID.jpeg)
