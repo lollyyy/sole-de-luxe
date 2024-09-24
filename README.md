@@ -1,3 +1,6 @@
+<details>
+<Summary><b>Tugas 2</b></summary>
+
 # Tugas 2: Implementasi Model-View-Template (MVT) pada Django
 Link applikasi PWS: http://aliya-zahira-soledeluxe.pbp.cs.ui.ac.id
 
@@ -30,6 +33,11 @@ Django dipilih karena kelengkapan fitur yang dimiliki karena Django telah menyed
 ## Mengapa model pada Django disebut sebagai ORM?
 Model pada Django disebut ORM (Object-Relational Mapping) karena ORM menghubungkan objek Python dengan tabel dalam database relasional. Dengan ORM, pengembang dapat berinteraksi dengan database menggunakan kode Python, menghindari penulisan SQL secara langsung, dan memungkinkan pengelolaan data yang efisien melalui pemetaan objek ke format tabel.
 
+<details>
+
+<details>
+<Summary><b>Tugas 3</b></summary>
+
 # Tugas 3
 ## Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
 Data delivery sangat penting dalam implementasi sebuah platform karena membantu meningkatkan efisiensi dengan memastikan bahwa data yang diperlukan oleh pengguna atau aplikasi tersedia tepat waktu dan dalam format yang sesuai. Selain itu, proses data delivery juga berkontribusi pada peningkatan kecepatan platform dan memastikan bahwa data yang disajikan akurat serta konsisten. Data delivery juga mendukung skalabilitas dengan memungkinkan platform menangani volume data yang meningkat seiring waktu, serta memastikan bahwa platform responsif terhadap perubahan dan pembaruan data secara real-time. Selain itu, aspek keamanan dalam data delivery melibatkan perlindungan data selama transmisi, menjaga data tetap aman dari akses yang tidak sah.
@@ -54,15 +62,24 @@ Untuk data dalam format XML dan JSON, pertama-tama saya menambahkan impor `HttpR
 Pertama, tambahkan impor untuk fungsi-fungsi yang telah dibuat sebelumnya, yaitu `show_xml`, `show_json`, `show_xml_by_id`, dan `show_json_by_id`, ke dalam berkas `views.py`. Setelah itu, tambahkan path URL untuk keempat fungsi tersebut ke dalam berkas `urls.py`. Setelah melakukan import beberapa function tadi, maka function tersebut dapat diakses pada rute yang sesuai di aplikasi Django dan memungkinkan pengguna untuk melihat data dalam format XML dan JSON serta mengakses objek berdasarkan ID melalui URL yang telah ditentukan.
 
 ## Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
-
 ### URL XML
 ![Flow Diagram](XML.jpeg)
-
 ### URL XML by ID
 ![Flow Diagram](XML_by_ID.jpeg)
-
 ### URL JSON
 ![Flow Diagram](JSON.jpeg)
-
 ### URL JSON by ID
 ![Flow Diagram](JSON_by_ID.jpeg)
+
+<details>
+
+<details>
+<Summary><b>Tugas 4</b></summary>
+
+# Tugas 4
+## Apa perbedaan antara HttpResponseRedirect() dan redirect()
+
+
+
+
+<details>
