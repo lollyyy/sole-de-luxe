@@ -80,9 +80,34 @@ Pertama, tambahkan impor untuk fungsi-fungsi yang telah dibuat sebelumnya, yaitu
 <Summary><b>Tugas 4</b></summary>
 
 # Tugas 4
-## Apa perbedaan antara HttpResponseRedirect() dan redirect()
+## 1. Apa perbedaan antara HttpResponseRedirect() dan redirect()
+### - HttpResponseRedirect()
+**HttpResponseRedirect()** adalah turunan dari **HttpResponse** yang menghasilkan respons pengalihan ke klien. Fungsinya adalahh untuk mengarahkan pengguna ke URL spesifik dengan mengirim objek **HttpResponse** yang berisi kode status HTTP 302
+### - redirect()
+**redirect()** merupakan fungsi shortcut yang lebih praktis dan fleksibel untuk mengelola pengalihan. Fungsi ini memudahkan pengalihan tanpa perlu secara manual menentukan URL, terutama saat menggunakan nama view atau objek.
 
+## 2. Jelaskan cara kerja penghubungan model Product dengan User!
+Penghubungan model **ShoeEntry** dengan model **User** dilakukan menggunakan field **ForeignKey**. Field **user** mengacu pada model **User** dari Django yang memungkinkan setiap entry sepatu dikaitkan dengan pengguna yang terdaftar. Dengan argumen **on_delete_models.CASCADE**, apabila pengguna dihapus, maka semua entry sepatu yang berkaitan dengan pengguna tersebut juga akan terhapus secara otomatis. Adanya relasi ini memungkinkan pengguna untuk mengelola data mereka.
 
+## 3. Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+### - Authentication
+Authentication merupakan proses verifikasi identitas pengguna. Proses ini akan memeriksa validitas kredensial pengguna seperti username dan password. 
+### - Authorization
+Authorization merupakan proses yang terjadi setelah penggun berhasil melalui tahap authentication. Authorization adalah proses yang mengatur hak akses pengguna terhadap suatu aplikasi. Authorization menentukan apa yang dapat dilakukan oleh pengguna setelah melewati tahap authentication. Contohnya, tahap selanjutnya setelah authentication pada web Sole de Luxe adalah user dapat menambahkan shoes entry beserta atributnya. 
 
+## 4. Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+Django mengingat pengguna yang telah login menggunakan session dan cookies, di mana session ID disimpan dalam cookie di browser untuk mengaitkan pengguna dengan data sesi mereka di server. Selain autentikasi, cookies juga digunakan untuk menyimpan preferensi pengguna, melacak aktivitas, dan meningkatkan keamanan. Namun, tidak semua cookies aman. Untuk menjaga keamanan, cookies sebaiknya hanya dikirim melalui HTTPS (Secure), tidak diakses oleh JavaScript (HttpOnly), dibatasi untuk domain yang sama (SameSite), dan data sensitif dienkripsi. Praktik ini memastikan keamanan dan integritas sesi pengguna di Django.
+
+## 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+### 1. Membuat form untuk registrasi
+Langkah pertama yang saya lakukan akan membuat form registrasi. Pada tahap ini menambahkan **UserCreationForm** dan **messages** untuk memudahkan pembuatan formulir pendaftaran pengguna. 
+### 2. Membuat form login, logout, dan merestriksi akses halaman main
+Untuk membuat form login, saya menambahkan **authenticate**, **login** dan **AuthenticationForm** pada views serta mendefinisikan fungsi **login_user**. Untuk membuat form logout, saya menambahkan sebuah fungsi bernama **logout_user** untuk menghapus sesi pengguna. Selanjutnya saya menambahkan **@login_required** untuk membatasi akses pengguna ke halaman main, sehingga login diperlukan untuk mengaksesnya.
+### 3. Menambahkan cookies
+Saya menggunakan cookie untuk menyimpan waktu login terakhir dengan **response.set_cookie('last_login')** pada fungsi **login_user** dan menambahkan **response.delete_cookie('last_login')** pada **logout_user** untuk menghapus cookie setelah pengguna logout.
+### 4. Menghubungan model dengan User
+Pada tahap ini saya menambahkan field **user = models.ForeignKey(User, on_delete=models.CASCADE)** pada model **ShoesEntry** di models.py. Setelah itu, saya menetapkan **shoes_entry.user = request.user** di **create_shoes_entry** dan filter entri di **show_main** dengan **ShoesEntry.objects.filter(user=request.user)**. Lalu, saya melakukan migrations terhadap model dan mengatur variabel **DEBUG** pada settings.
+### 4. Membuat dummy data
+Sebelum melakukan migration, saya sudah membuat satu user. Setelah itu, saya mendefinisikan satu akun user lagi beserta 3 dummy data di masing-masing akun. 
 
 </details>
