@@ -78,7 +78,8 @@
     {% block content %}
     <div class="header">
         <h1>Sole de Luxe</h1>
-        <h2>by Aliya Zahira Nadra (2306245863) PBP B</h2>
+        <h2>Aliya Zahira Nadra (2306245863) PBP B</h2>
+        <p class="by-line">By <span>{{ name }} - {{ class }}</span></p>
     </div>
     
     <div class="content">
@@ -110,8 +111,9 @@
         <a href="{% url 'main:create_shoes_entry' %}">
             <button>Add New Shoes Entry</button>
         </a>
+        <a href="{% url 'main:logout' %}">
+            <button>Logout</button>
+          </a>
+        <h5>Sesi terakhir login: {{ last_login }}</h5>
     </div>
     {% endblock content %}
-
-</body>
-</html>
