@@ -33,7 +33,7 @@ Django dipilih karena kelengkapan fitur yang dimiliki karena Django telah menyed
 ## Mengapa model pada Django disebut sebagai ORM?
 Model pada Django disebut ORM (Object-Relational Mapping) karena ORM menghubungkan objek Python dengan tabel dalam database relasional. Dengan ORM, pengembang dapat berinteraksi dengan database menggunakan kode Python, menghindari penulisan SQL secara langsung, dan memungkinkan pengelolaan data yang efisien melalui pemetaan objek ke format tabel.
 
-<details>
+</details>
 
 <details>
 <Summary><b>Tugas 3</b></summary>
@@ -71,7 +71,7 @@ Pertama, tambahkan impor untuk fungsi-fungsi yang telah dibuat sebelumnya, yaitu
 ### URL JSON by ID
 ![Flow Diagram](JSON_by_ID.jpeg)
 
-<details>
+</details>
 
 <details>
 <Summary><b>Tugas 4</b></summary>
@@ -82,4 +82,4 @@ Pertama, tambahkan impor untuk fungsi-fungsi yang telah dibuat sebelumnya, yaitu
 
 
 
-<details>
+</details>
