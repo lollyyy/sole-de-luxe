@@ -1,3 +1,6 @@
+# Sole de Luxe
+Link applikasi PWS: http://aliya-zahira-soledeluxe.pbp.cs.ui.ac.id
+
 <details>
 <Summary><b>Tugas 2</b></summary>
 
