@@ -15,12 +15,12 @@
     <!-- User options di bagian kanan -->
     <div class="flex items-center space-x-8"> <!-- Mengubah jarak antara item -->
         {% if user.is_authenticated %}
-          <span class="text-black font-semibold text-xl">WELCOME, {{ user.username }}</span> <!-- Memperbesar ukuran font -->
-          <a href="{% url 'main:logout' %}" class="bg-black hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded transition-all duration-300 ease-in-out text-lg">
+          <span class="text-black font text-xl">WELCOME, {{ user.username }}</span> <!-- Memperbesar ukuran font -->
+          <a href="{% url 'main:logout' %}" class="bg-black hover:bg-gray-700 text-white font py-3 px-6 rounded transition-all duration-300 ease-in-out text-lg">
             LOGOUT
           </a>
         {% else %}
-          <a href="{% url 'main:login' %}" class="bg-black hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded transition-all duration-300 ease-in-out text-lg">
+          <a href="{% url 'main:login' %}" class="bg-black hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded transition-all duration-300 ease-in-out text-lg">
             LOGIN
           </a>
           <a href="{% url 'main:register' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">

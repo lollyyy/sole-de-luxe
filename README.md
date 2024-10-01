@@ -111,3 +111,66 @@ Pada tahap ini saya menambahkan field **user = models.ForeignKey(User, on_delete
 Sebelum melakukan migration, saya sudah membuat satu user. Setelah itu, saya mendefinisikan satu akun user lagi beserta 3 dummy data di masing-masing akun. 
 
 </details>
+
+<details>
+<Summary><b>Tugas 5</b></summary>
+
+# Tugas 5
+
+## 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Inline Styles: Memiliki prioritas tertinggi karena diterapkan langsung pada elemen HTML.
+ID Selectors: Menggunakan ID elemen, ditandai dengan simbol #, memiliki prioritas setelah inline styles.
+Class, Attribute, dan Pseudo-Class Selectors: Prioritasnya berada di bawah ID selectors, contohnya seperti .classname, [type="text"], dan :hover.
+Element dan Pseudo-Element Selectors: Memiliki prioritas terendah, misalnya untuk elemen HTML seperti div, h1, atau p.
+Aturan !important: Mengabaikan semua aturan lain dan langsung diterapkan meskipun ada selector dengan prioritas lebih tinggi.
+
+## 2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+Karena programmer tidak mungkin bisa memprediksi perangkat apa yang akan digunakan oleh pengguna untuk mengakses website. Oleh karena itu, penting untuk menyesuaikan desain agar tampilan website tetap optimal di berbagai perangkat dengan ukuran layar yang beragam, seperti ponsel, tablet, laptop, atau komputer desktop. Tanpa responsive design, tampilan website bisa menjadi tidak rapi dan sulit digunakan pada perangkat yang berbeda.
+
+Contoh aplikasi yang sudah menerapkan responsive design untuk desktop dan tampilan mobile adalah Tokopedia, sementara aplikasi yang belum menerapkan responsive design adalah elearning.universityX.edu. 
+
+## 3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+Margin, border, dan padding adalah tiga properti CSS yang digunakan untuk mengatur ruang di sekitar elemen HTML, dan masing-masing memiliki fungsi yang berbeda:
+
+- Margin: Adalah ruang di luar elemen, yang memisahkan elemen dari elemen lainnya di sekitar Margin tidak mempengaruhi ukuran elemen itu sendiri.
+Cara implementasi:
+```css
+div {
+    margin: 20px; /* Menambahkan margin 20px di sekitar elemen */
+}
+```
+
+- Border: Adalah garis yang mengelilingi elemen, dan berada di antara margin dan padding. Border memisahkan konten elemen dari margin dan menambah visual boundary pada elemen.
+Cara implementasi:
+```css
+div {
+    border: 2px solid black; /* Membuat border dengan ketebalan 2px, tipe solid, dan warna hitam */
+}
+```
+
+- Padding: Adalah ruang di dalam elemen, antara konten elemen dan border. Padding menambah jarak antara isi elemen (seperti teks atau gambar) dengan tepi elemen.
+Cara implementasi:
+```css
+div {
+    padding: 15px; /* Menambahkan jarak 15px antara konten dan border elemen */
+}
+```
+
+## 4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+Flexbox adalah Model tata letak satu dimensi yang mengatur elemen dalam satu baris atau kolom.
+Kegunaan:
+- Menyusun elemen secara fleksibel.
+- Memudahkan responsivitas dan penyesuaian ukuran.
+- Mengatur penyelarasan dan distribusi ruang antar elemen.
+
+Grid Layout adalah model tata letak dua dimensi yang memungkinkan pengaturan elemen dalam baris dan kolom secara bersamaan.
+Kegunaan:
+- Mengatur tata letak kompleks dengan lebih mudah.
+- Membagi halaman menjadi grid yang dapat disesuaikan.
+- Memungkinkan pengaturan posisi elemen di dalam grid dengan kontrol yang lebih baik.
+- Kedua metode ini sangat berguna untuk menciptakan tata letak yang responsif dan terorganisir dalam desain web.
+
+## 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+- Pertama untuk mengimplementasikan edit dan delete, saya lakuka dengan membuat function edit_shoes dan delete_shoes di file views lalu melakukan routing pada url path
+- Selanjutnya untuk kustomisasi design saya mengintegrasikan Tailwind ke dalam proyek ini, saya melakukan modifikasi pada file base.html agar dapat menghubungkan template Django dengan Tailwind serta menyesuaikan tampilan untuk berbagai perangkat (mobile). Lalu, saya melakukan penyesuaian pada setiap template sesuai dengan tema aplikasi yang saya inginkan. Setiap produk dalam daftar produk akan ditampilkan di shoes_display_card.html beserta model yang relevan. Pada setiap kartu produk, saya menambahkan tombol untuk mengedit dan menghapus entri di bagian bawah kartu agar pengguna lebih mudah melakukan penyesuaian. Terakhir, untuk menambahkan navigasi bar pada website, saya membuat file baru dengan nama navbar.html. Desain navigasi bar dibagi menjadi dua bagian, yaitu untuk desktop dan mobile (dengan tombol burger), lalu saya menyertakan navbar ini pada semua template halaman yang diinginkan.
+</details>

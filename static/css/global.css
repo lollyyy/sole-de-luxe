@@ -1,98 +1,20 @@
-/* Gaya Umum untuk Input, Textarea, dan Select */
-.form-style form input,
-.form-style form textarea,
-.form-style form select {
+.form-style form input, form textarea, form select {
     width: 100%;
-    padding: 0.5rem 0.75rem; /* Padding lebih sesuai */
-    border: 1px solid #d1d5db; /* Border berwarna abu-abu muda */
-    border-radius: 0.375rem; /* Radius sudut */
-    background-color: #ffffff; /* Latar belakang putih */
-    color: #000000; /* Teks hitam */
-    transition: border-color 0.2s ease-in-out; /* Transisi warna border */
-    font-size: 1rem; /* Ukuran font konsisten */
+    padding: 0.5rem;
+    border: 2px solid #bcbcbc;
+    border-radius: 0.375rem;
 }
-
-/* Gaya untuk Input yang dalam keadaan fokus */
-.form-style form input:focus,
-.form-style form textarea:focus,
-.form-style form select:focus {
-    outline: none; /* Menghilangkan outline default */
-    border-color: #000000; /* Mengubah warna border menjadi hitam saat fokus */
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+.form-style form input:focus, form textarea:focus, form select:focus {
+    outline: none;
+    border-color: #674ea7;
+    box-shadow: 0 0 0 3px #674ea7;
 }
-
-/* Gaya untuk Button */
-.form-style button {
-    background-color: #ffffff; /* Latar belakang putih */
-    border: 1px solid #d1d5db; /* Border abu-abu */
-    color: #000000; /* Teks hitam */
-    padding: 0.5rem 1rem; /* Padding vertikal dan horizontal */
-    border-radius: 0.375rem; /* Radius sudut */
-    font-size: 1rem; /* Ukuran font */
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out; /* Transisi untuk button */
-    cursor: pointer; /* Cursor pointer saat hover */
-}
-
-/* Efek hover untuk Button */
-.form-style button:hover {
-    background-color: #f3f4f6; /* Latar belakang abu-abu muda saat hover */
-    border-color: #000000; /* Mengubah warna border menjadi hitam saat hover */
-}
-
-/* Gaya untuk Checkbox */
-.form-style input[type="checkbox"] {
-    height: 1rem; /* Ukuran checkbox */
-    width: 1rem; /* Ukuran checkbox */
-    border-color: #d1d5db; /* Border warna checkbox */
-}
-
-/* Gaya untuk Link dalam Button */
-.form-style a {
-    color: #3b82f6; /* Warna link biru */
-    transition: color 0.2s ease-in-out; /* Transisi warna link */
-}
-
-.form-style a:hover {
-    color: #2563eb; /* Warna link saat hover */
-}
-
-/* Gaya untuk Pesan */
-.form-style .alert {
-    padding: 1rem; /* Padding untuk pesan */
-    border-radius: 0.375rem; /* Radius sudut untuk pesan */
-    margin-top: 1rem; /* Margin atas untuk pemisahan dari elemen lain */
-}
-
-/* Gaya untuk pesan sukses */
-.form-style .alert.success {
-    background-color: #d1fae5; /* Latar belakang hijau muda */
-    border: 1px solid #059669; /* Border hijau */
-    color: #047857; /* Teks hijau tua */
-}
-
-/* Gaya untuk pesan error */
-.form-style .alert.error {
-    background-color: #fee2e2; /* Latar belakang merah muda */
-    border: 1px solid #ef4444; /* Border merah */
-    color: #b91c1c; /* Teks merah tua */
-}
-
-/* Gaya untuk pesan info */
-.form-style .alert.info {
-    background-color: #e0f2fe; /* Latar belakang biru muda */
-    border: 1px solid #3b82f6; /* Border biru */
-    color: #1d4ed8; /* Teks biru tua */
-}
-
-/* Animasi untuk shine */
 @keyframes shine {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
 }
-
 .animate-shine {
     background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3));
     background-size: 200% 100%;
-    animation: shine 3s infinite; /* Animasi shine */
+    animation: shine 3s infinite;
 }
-
