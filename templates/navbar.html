@@ -1,20 +1,20 @@
 {% load static %}
-<nav class="bg-white shadow-md fixed top-0 left-0 z-40 w-full py-6"> <!-- Ukuran navbar diperbesar -->
+<nav class="bg-white shadow-md fixed top-0 left-0 z-40 w-full py-8"> 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-full"> <!-- Mengubah tinggi untuk memenuhi navbar -->
+    <div class="flex items-center justify-between h-full"> 
       <!-- Menu di bagian kiri -->
-      <div class="flex space-x-8 text-xl"> <!-- Ukuran font lebih besar -->
+      <div class="flex space-x-8 text-2xl"> 
         <a href="#card-info" class="text-black hover:text-gray-600 font-normal">HOME</a>
         <a href="{% url 'main:shop' %}" class="text-black hover:text-gray-600 font-normal">SHOP</a>
       </div>
 
       <!-- Title di tengah -->
       <div class="flex-grow text-center">
-        <span class="text-4xl font-[Sororite]">Sole de Luxe</span> <!-- Menggunakan font Sororite -->
+        <span class="text-4xl font-[Sororite]">Sole de Luxe</span> 
       </div>
 
       <!-- User options di bagian kanan -->
-      <div class="flex items-center space-x-4 text-xl"> <!-- Ukuran font lebih besar -->
+      <div class="flex items-center space-x-4 text-xl"> 
         {% if user.is_authenticated %}
           <span class="text-black font-normal">WELCOME, {{ user.username }}</span>
           <a href="{% url 'main:logout' %}" class="bg-red-500 hover:bg-red-600 text-white font-normal py-2 px-3 rounded transition-all duration-300 ease-in-out text-sm">
@@ -29,29 +29,37 @@
     </div>
   </div>
 
+      <!-- Tombol toggle untuk mobile -->
+      <div class="md:hidden flex items-center">
+        <button class="mobile-menu-button">
+          <svg class="w-6 h-6 text-black" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Mobile menu -->
-  <div class="mobile-menu hidden md:hidden px-4 w-full">
+<div class="mobile-menu hidden md:hidden px-4 w-full md:max-w-full">
     <div class="pt-2 pb-3 space-y-1 mx-auto">
+      {% if user.is_authenticated %}
+        <!-- Welcome message at the top -->
+        <span class="block text-gray-300 px-3 py-2">Welcome, {{ user.username }}</span>
+      {% endif %}
+      
+      <!-- Home and Shop links -->
       <a href="#card-info" class="block text-left text-gray-600 hover:text-black hover:font-semibold transition duration-300 mb-3">HOME</a>
       <a href="{% url 'main:shop' %}" class="block text-left text-gray-600 hover:text-black hover:font-semibold transition duration-300 mb-3">SHOP</a>
-
+  
+      <!-- Logout at the bottom -->
       {% if user.is_authenticated %}
-        <span class="block text-gray-300 px-3 py-2">Welcome, {{ user.username }}</span>
         <a href="{% url 'main:logout' %}" class="block text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">Logout</a>
       {% else %}
+        <!-- Show login and register for unauthenticated users -->
         <a href="{% url 'main:login' %}" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mb-2">Login</a>
         <a href="{% url 'main:register' %}" class="block text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">Register</a>
       {% endif %}
     </div>
   </div>
-</nav>
-
-<!-- Script untuk toggle menu mobile -->
-<script>
-  const btn = document.querySelector("button.mobile-menu-button");
-  const menu = document.querySelector(".mobile-menu");
-
-  btn.addEventListener("click", () => {
-    menu.classList.toggle("hidden");
-  });
-</script>
+  
