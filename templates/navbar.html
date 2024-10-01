@@ -1,71 +1,75 @@
-{% load static %}
-<nav class="bg-white shadow-lg fixed top-0 left-0 z-40 w-full py-4"> 
-  <div class="flex justify-between items-center px-8"> 
-    
-    <div class="flex space-x-8 text-xl"> 
-        <a href="{% url 'main:shop' %}" class="text-black hover:text-gray-600 font-normal">HOME</a>
-        <a href="{% url 'main:shop' %}" class="text-black hover:text-gray-600 font-normal">SHOP</a>
-    </div>
+<nav class="bg-white shadow-lg fixed top-0 left-0 z-40 w-full py-6">
+    <div class="flex justify-between items-center px-10">
+        <!-- Menu di bagian kiri -->
+        <div class="flex space-x-12
+         text-2xl"> 
+            <a href="{% url 'main:shop' %}" class="text-black hover:text-gray-600 font-normal">HOME</a>
+          <a href="{% url 'main:shop' %}" class="text-black hover:text-gray-600 font-normal">SHOP</a>
+        </div>
 
-    <!-- Title -->
+      <!-- Title di Tengah -->
     <div class="flex-grow text-center">
-      <span class="text-4xl font-[Sororite]">Sole de Luxe</span> 
-    </div>
-
-    <div class="flex items-center space-x-4"> 
-      {% if user.is_authenticated %}
-        <span class="text-black font-normal">WELCOME, {{ user.username }}</span> 
-        <a href="{% url 'main:logout' %}" class="bg-black hover:bg-gray-700 text-white font-normal py-1.5 px-3 rounded transition-all duration-300 ease-in-out text-sm">
-          LOGOUT
-        </a>
-      {% else %}
-        <a href="{% url 'main:login' %}" class="bg-black hover:bg-gray-700 text-white font-normal py-1.5 px-3 rounded transition-all duration-300 ease-in-out text-sm">
-          LOGIN
-        </a>
-      {% endif %}
+        <span class="text-4xl font-[Sororite]">SOLE DE LUXE</span> <!-- Memperbesar ukuran font title -->
+      </div>
+        
+    <!-- User options di bagian kanan -->
+    <div class="flex items-center space-x-8"> <!-- Mengubah jarak antara item -->
+        {% if user.is_authenticated %}
+          <span class="text-black font-semibold text-xl">WELCOME, {{ user.username }}</span> <!-- Memperbesar ukuran font -->
+          <a href="{% url 'main:logout' %}" class="bg-black hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded transition-all duration-300 ease-in-out text-lg">
+            LOGOUT
+          </a>
+        {% else %}
+          <a href="{% url 'main:login' %}" class="bg-black hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded transition-all duration-300 ease-in-out text-lg">
+            LOGIN
+          </a>
+          <a href="{% url 'main:register' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+            Register
+          </a>
+          {% endif %}
         </div>
         <div class="md:hidden flex items-center">
-        <button class="mobile-menu-button">
-        <svg class="w-6 h-6 text-black" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-        </button>
+          <button class="mobile-menu-button">
+            <svg class="w-6 h-6 text-black" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
         </div>
-        </div>
-        </div>
-<!-- Mobile menu -->
-<div class="mobile-menu hidden md:hidden  px-4 w-full md:max-w-full">
-    <div class="pt-2 pb-3 space-y-1 mx-auto">
-        <div class="flex flex-col">
-            <a href="{% url 'main:show_main' %}" class="block text-left text-gray-600 hover:text-black hover:font-semibold transition duration-300 mb-3">
-              HOME
-            </a>
-            <a href="{% url 'main:show_main' %}" class="block text-left text-gray-600 hover:text-black hover:font-semibold transition duration-300 mb-3">
-              SHOP
-            </a>
-        </div>
-      
-        {% if user.is_authenticated %}
-        <span class="block text-gray-300 px-3 py-2">Welcome, {{ user.username }}</span>
-        <a href="{% url 'main:logout' %}" class="block text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-          Logout
-        </a>
-      {% else %}
-        <a href="{% url 'main:login' %}" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mb-2">
-          Login
-        </a>
-        <a href="{% url 'main:register' %}" class="block text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-          Register
-        </a>
-      {% endif %}
+      </div>
     </div>
-  </div>
-  <script>
-    const btn = document.querySelector("button.mobile-menu-button");
-    const menu = document.querySelector(".mobile-menu");
+    <!-- Mobile menu -->
+    <div class="mobile-menu hidden md:hidden px-4 w-full">
+      <div class="pt-2 pb-3 space-y-1 mx-auto">
+        <div class="flex flex-col">
+          <a href="{% url 'main:show_main' %}" class="block text-left text-gray-600 hover:text-black hover:font-semibold transition duration-300 mb-3">
+            HOME
+          </a>
+          <a href="{% url 'main:show_main' %}" class="block text-left text-gray-600 hover:text-black hover:font-semibold transition duration-300 mb-3">
+            SHOP
+          </a>
+        </div>
   
-    btn.addEventListener("click", () => {
-      menu.classList.toggle("hidden");
-    });
-  </script>
-</nav>
+        {% if user.is_authenticated %}
+          <span class="block text-[#85827f] mb-4">Welcome, {{ user.username }}?</span>
+          <a href="{% url 'main:logout' %}" class="block text-center bg-[#85827f] hover:bg-[#615f5d] text-white font-bold py-3 px-6 rounded transition duration-300">
+            Logout
+          </a>
+        {% else %}
+          <a href="{% url 'main:login' %}" class="block text-center text-gray-600 hover:text-black transition duration-300 mb-2">
+            Login
+          </a>
+          <a href="{% url 'main:register' %}" class="block text-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded transition duration-300">
+            Register
+          </a>
+        {% endif %}
+      </div>
+    </div>
+    <script>
+      const btn = document.querySelector("button.mobile-menu-button");
+      const menu = document.querySelector(".mobile-menu");
+  
+      btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+    </script>
+  </nav>
