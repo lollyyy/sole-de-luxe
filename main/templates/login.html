@@ -5,28 +5,89 @@
 {% endblock meta %}
 
 {% block content %}
-<div class="login">
-  <h1>Login</h1>
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-xl w-full space-y-8"> 
+    <!-- Login -->
+    <div class="bg-white p-8 rounded-lg shadow-lg">
+      <div class="text-center">
+        <h2 class="text-2xl font-light tracking-wider text-black">
+          Welcome Back
+        </h2>
+        <p class="mt-2 text-sm text-gray-500">
+          Log in to your account to continue
+        </p>
+      </div>
+      
+      <form class="mt-8 space-y-6" method="POST" action="">
+        {% csrf_token %}
+        <div class="rounded-md shadow-sm space-y-6">
+          <div>
+            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+            <input id="username" name="username" type="text" required 
+                   class="appearance-none block w-full px-3 py-2 border-b border-gray-300 focus:border-black 
+                   focus:outline-none focus:ring-0 sm:text-sm text-black">
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input id="password" name="password" type="password" required 
+                   class="appearance-none block w-full px-3 py-2 border-b border-gray-300 focus:border-black 
+                   focus:outline-none focus:ring-0 sm:text-sm text-black">
+          </div>
+        </div>
 
-  <form method="POST" action="">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input class="btn login_btn" type="submit" value="Login" /></td>
-      </tr>
-    </table>
-  </form>
+        <!-- Remember Me -->
+        <div class="flex items-center justify-between mt-6">
+          <div class="flex items-center">
+            <input id="remember_me" name="remember_me" type="checkbox" 
+                   class="h-4 w-4 text-black border-gray-300 rounded focus:ring-black">
+            <label for="remember_me" class="ml-2 block text-sm text-gray-700">
+              Remember me
+            </label>
+          </div>
+          <div>
+            <a href="#" class="text-sm font-light text-gray-500 hover:text-black">Forgot password?</a>
+          </div>
+        </div>
 
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %} Don't have an account yet?
-  <a href="{% url 'main:register' %}">Register Now</a>
+        <!-- Button -->
+        <div>
+          <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-gray-300 
+                  text-sm font-light tracking-wider text-black bg-white hover:bg-gray-100 focus:outline-none 
+                  focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150 ease-in-out">
+            Sign in
+          </button>
+        </div>
+      </form>
+
+      {% if messages %}
+      <div class="mt-4">
+        {% for message in messages %}
+        {% if message.tags == "success" %}
+              <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                  <span class="block sm:inline">{{ message }}</span>
+              </div>
+          {% elif message.tags == "error" %}
+              <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                  <span class="block sm:inline">{{ message }}</span>
+              </div>
+          {% else %}
+              <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
+                  <span class="block sm:inline">{{ message }}</span>
+              </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="text-center mt-6">
+        <p class="text-sm text-gray-500">
+          Don't have an account?
+          <a href="{% url 'main:register' %}" class="font-medium text-black underline hover:text-gray-700">
+            Sign up
+          </a>
+        </p>
+      </div>
+    </div> 
+  </div>
 </div>
-
 {% endblock content %}

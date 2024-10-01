@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from main.forms import ShoesEntryForm
 from main.models import ShoesEntry
 from django.http import HttpResponse
@@ -99,3 +99,26 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def edit_shoes(request, id):
+    # Get shoes entry berdasarkan id
+    shoes = ShoesEntry.objects.get(pk = id)
+
+    # Set shoes entry sebagai instance dari form
+    form = ShoesEntryForm(request.POST or None, instance=shoes)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_shoes.html", context)
+
+def delete_shoes(request, id):
+    # Get shoes berdasarkan id
+    shoes = ShoesEntry.objects.get(pk = id)
+    # Hapus shoes
+    shoes.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))

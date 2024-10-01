@@ -1,0 +1,38 @@
+{% load static %}
+<nav class="bg-white shadow-lg fixed top-0 left-0 z-40 w-full py-4"> 
+  <div class="flex justify-between items-center px-8"> 
+    
+    <div class="flex space-x-8 text-xl"> 
+      <a href="#card-info" class="text-black hover:text-gray-600 font-normal">HOME</a>
+      <a href="{% url 'main:shop' %}" class="text-black hover:text-gray-600 font-normal">SHOP</a>
+    </div>
+
+    <!-- Title -->
+    <div class="flex-grow text-center">
+      <span class="text-4xl font-[Sororite]">Sole de Luxe</span> 
+    </div>
+
+    <div class="flex items-center space-x-4"> 
+      {% if user.is_authenticated %}
+        <span class="text-black font-normal">WELCOME, {{ user.username }}</span> 
+        <a href="{% url 'main:logout' %}" class="bg-black hover:bg-gray-700 text-white font-normal py-1.5 px-3 rounded transition-all duration-300 ease-in-out text-sm">
+          LOGOUT
+        </a>
+      {% else %}
+        <a href="{% url 'main:login' %}" class="bg-black hover:bg-gray-700 text-white font-normal py-1.5 px-3 rounded transition-all duration-300 ease-in-out text-sm">
+          LOGIN
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<!-- Script for mobile menu toggle -->
+<script>
+  const btn = document.querySelector(".mobile-menu-button");
+  const menu = document.querySelector(".mobile-menu");
+
+  btn.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+  });
+</script>

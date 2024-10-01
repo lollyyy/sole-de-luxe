@@ -1,119 +1,57 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block meta %}
-<title>Sole De Luxe</title>
+<title>Sole de Luxe</title>
 <!-- import font -->
 <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 <style>
     body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        margin: 0;
-        background-color: #f0f0f0; /* Warna background halaman */
+        font-family: 'Merriweather', serif;
+        background-color: #f9f9f9; /* atur warna background halaman */
         color: #333;
-    }
-    /* SECTION HEADER */
-    .header {
-        background-image: url('https://i.pinimg.com/736x/3a/87/a2/3a87a21770cecc45668f450cbf4ded2a.jpg');
-        background-size: cover; /* biar ukuran gambarnya sesuai */
-        background-position: center; /* agar gambarnya ada ditengah */
-        background-repeat: no-repeat;
-        padding: 50px 20px;
-        text-align: center;
-        color: #fff;
-        border-bottom: 5px solid #fff;
-    }
-    .header h1 {
-        font-family: 'Allura', cursive; /* set font jadi allura */
-        font-size: 4em;
         margin: 0;
     }
-    .header h2 {
-        font-family: 'Merriweather', serif; /* set font jadi merriweather */
-        font-size: 1.5em;
-        margin: 10px 0 0;
-    }
-    .content {
+    .header {
+        text-align: center;
         padding: 20px;
-        max-width: 1000px;
-        margin: 0 auto;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        color: #333; /* warna teks */
+        margin: 20px 0; 
     }
-    /* TABLE untuk add new shoes entry */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-    }
-    table, th, td {
-        border: 1px solid #ddd;
-    }
-    th, td {
-        padding: 12px;
-        text-align: left;
-    }
-    th {
-        background-color: #f4f4f4;
-    }
-    button {
-        padding: 10px 20px;
-        font-size: 1em;
-        color: #fff;
-        background-color: #007bff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    button:hover {
-        background-color: #0056b3;
+    .last-login {
+        font-size: 1.25em; 
     }
 </style>
 {% endblock meta %}
-</head>
-<body>
 
-    {% block content %}
-    <div class="header">
-        <h1>Sole de Luxe</h1>
-        <h2>Aliya Zahira Nadra (2306245863) PBP B</h2>
-        <p class="by-line">By <span>{{ name }} - {{ class }}</span></p>
+{% block content %}
+{% include 'navbar.html' %}
+<div class="overflow-x-hidden px-4 md:px-8 pb-8 pt-24 min-h-screen bg-gray-100 flex flex-col">
+
+    <div class="p-2 mb-6 relative">
+        <div class="relative grid grid-cols-1 z-30 md:grid-cols-1 gap-8">
+            {% include "card_info.html" with name=name npm=npm class=class last_login=last_login %}
+        </div>
     </div>
-    
-    <div class="content">
-        {% if not shoes_entries %}
-        <p>Sorry, the shoes you are looking for are unavailable.</p>
-        {% else %}
-        <table>
-            <tr>
-                <th>Shoes Name</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>Color</th>
-                <th>Condition</th>
-                <th>Release Year</th>
-            </tr>
-            {% for shoes_entry in shoes_entries %}
-            <tr>
-                <td>{{ shoes_entry.name }}</td>
-                <td>{{ shoes_entry.price }}</td>
-                <td>{{ shoes_entry.description }}</td>
-                <td>{{ shoes_entry.color }}</td>
-                <td>{{ shoes_entry.condition }}</td>
-                <td>{{ shoes_entry.release_year }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        {% endif %}
-        
-        <a href="{% url 'main:create_shoes_entry' %}">
-            <button>Add New Shoes Entry</button>
+
+    <div class="flex justify-center mb-6">
+        <a href="{% url 'main:create_shoes_entry' %}" class="bg-white border border-black hover:bg-gray-200 text-black rounded-sm p-2 transition duration-300 shadow-md w-full max-w-[120px] text-center mt-4">
+            Add Shoes
         </a>
-        <a href="{% url 'main:logout' %}">
-            <button>Logout</button>
-          </a>
-        <h5>Sesi terakhir login: {{ last_login }}</h5>
     </div>
-    {% endblock content %}
+
+    {% if not shoes_entries %}
+    <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+        <img src="{% static 'image/very-sad.png' %}" alt="Sad face" class="w-80 h-49 mb-4" />
+        <p class="text-center text-gray-600 mt-4">Sorry, the shoes you are looking for are unavailable.</p>
+    </div>
+    {% else %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+        {% for shoes_entry in shoes_entries %}
+        {% include 'shoes_display_card.html' with shoes_entry=shoes_entry %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

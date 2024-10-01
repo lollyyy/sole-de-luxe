@@ -1,0 +1,14 @@
+{% load static %}
+
+<div class="relative h-[600px] bg-cover bg-center rounded-lg overflow-hidden" style="background-image: url('https://i.pinimg.com/564x/2f/9b/74/2f9b74093a8b1ee362662c629d79929c.jpg');">
+    <div class="flex flex-col items-center justify-center h-full text-center text-white z-10 pb-40"> 
+        <h1 class="text-6xl font-extrabold">Find your perfect shoes</h1>
+        
+        <a href="{% url 'main:shop' %}" class="bg-white border border-green-100 hover:bg-white text-black rounded-sm p-3 transition duration-300 shadow-md w-full max-w-[140px] text-center mt-8"> 
+            Shop Now
+        </a>
+    </div>
+    <div class="absolute bottom-4 left-4">
+        <p class="text-white text-lg">Last Login: {{ last_login }}</p>
+    </div>
+</div>
