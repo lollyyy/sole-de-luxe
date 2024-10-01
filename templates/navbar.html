@@ -1,18 +1,25 @@
 {% load static %}
-<nav class="bg-white shadow-lg fixed top-0 left-0 z-40 w-full py-4"> 
-  <div class="flex justify-between items-center px-8"> 
-    
-    <div class="flex space-x-8 text-xl"> 
+<nav class="bg-white shadow-lg fixed top-0 left-0 z-40 w-full py-4">
+  <div class="flex justify-between items-center px-8">
+
+    <div class="flex space-x-8 text-xl">
       <a href="#card-info" class="text-black hover:text-gray-600 font-normal">HOME</a>
       <a href="{% url 'main:shop' %}" class="text-black hover:text-gray-600 font-normal">SHOP</a>
     </div>
 
     <!-- Title -->
     <div class="flex-grow text-center">
-      <span class="text-4xl font-[Sororite]">Sole de Luxe</span> 
+      <span class="text-4xl font-[Sororite]">Sole de Luxe</span>
     </div>
 
-    <div class="flex items-center space-x-4"> 
+    <!-- Button untuk menu mobile -->
+    <button class="mobile-menu-button md:hidden focus:outline-none">
+      <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+
+    <div class="hidden md:flex items-center space-x-4"> 
       {% if user.is_authenticated %}
         <span class="text-black font-normal">WELCOME, {{ user.username }}</span> 
         <a href="{% url 'main:logout' %}" class="bg-black hover:bg-gray-700 text-white font-normal py-1.5 px-3 rounded transition-all duration-300 ease-in-out text-sm">
@@ -25,11 +32,30 @@
       {% endif %}
     </div>
   </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu hidden md:hidden px-4 w-full md:max-w-full">
+    <div class="pt-2 pb-3 space-y-1 mx-auto">
+      {% if user.is_authenticated %}
+        <span class="block text-gray-300 px-3 py-2">Welcome, {{ user.username }}</span>
+        <a href="{% url 'main:logout' %}" class="block text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+          Logout
+        </a>
+      {% else %}
+        <a href="{% url 'main:login' %}" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mb-2">
+          Login
+        </a>
+        <a href="{% url 'main:register' %}" class="block text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+          Register
+        </a>
+      {% endif %}
+    </div>
+  </div>
 </nav>
 
 <!-- Script for mobile menu toggle -->
 <script>
-  const btn = document.querySelector(".mobile-menu-button");
+  const btn = document.querySelector("button.mobile-menu-button");
   const menu = document.querySelector(".mobile-menu");
 
   btn.addEventListener("click", () => {
