@@ -2,26 +2,26 @@
     <div class="flex justify-between items-center px-10">
         <!-- Menu di bagian kiri -->
         <div class="flex space-x-12
-         text-2xl"> 
+         text-lg"> 
             <a href="{% url 'main:shop' %}" class="text-black hover:text-gray-600 font-normal">HOME</a>
           <a href="{% url 'main:shop' %}" class="text-black hover:text-gray-600 font-normal">SHOP</a>
         </div>
 
       <!-- Title di Tengah -->
     <div class="flex-grow text-center">
-        <span class="text-4xl font-[Sororite]">SOLE DE LUXE</span> <!-- Memperbesar ukuran font title -->
+        <span class="text-5xl font-[Sororite]">Sole de Luxe</span> <!-- Memperbesar ukuran font title -->
       </div>
         
     <!-- User options di bagian kanan -->
     <div class="flex items-center space-x-8"> <!-- Mengubah jarak antara item -->
         {% if user.is_authenticated %}
-          <span class="text-black font text-xl">WELCOME, {{ user.username }}</span> <!-- Memperbesar ukuran font -->
-          <a href="{% url 'main:logout' %}" class="bg-black hover:bg-gray-700 text-white font py-3 px-6 rounded transition-all duration-300 ease-in-out text-lg">
-            LOGOUT
+          <span class="text-black font text-lg">WELCOME, {{ user.username }}</span> <!-- Memperbesar ukuran font -->
+          <a href="{% url 'main:logout' %}" class="bg-black hover:bg-gray-700 text-white font py-2 px-3 rounded transition-all duration-300 ease-in-out text-md">
+            Log Out
           </a>
         {% else %}
           <a href="{% url 'main:login' %}" class="bg-black hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded transition-all duration-300 ease-in-out text-lg">
-            LOGIN
+            Log In
           </a>
           <a href="{% url 'main:register' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
             Register
@@ -52,7 +52,7 @@
         {% if user.is_authenticated %}
           <span class="block text-[#85827f] mb-4">Welcome, {{ user.username }}?</span>
           <a href="{% url 'main:logout' %}" class="block text-center bg-[#85827f] hover:bg-[#615f5d] text-white font-bold py-3 px-6 rounded transition duration-300">
-            Logout
+            Log Out
           </a>
         {% else %}
           <a href="{% url 'main:login' %}" class="block text-center text-gray-600 hover:text-black transition duration-300 mb-2">
