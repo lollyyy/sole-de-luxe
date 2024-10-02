@@ -45,8 +45,8 @@
         <span class="text-black font text-md">Welcome, {{ user.username }}</span>
           <div class="flex flex-col">
             
-              <a href="{% url 'main:shop' %}" class="block text-left text-gray-600 hover:text-black hover:font-semibold transition duration-300 mb-3">HOME</a>
-              <a href="{% url 'main:shop' %}#shoes_display_card" class="block text-left text-gray-600 hover:text-black hover:font-semibold transition duration-300 mb-3">SHOP</a>
+              <a href="{% url 'main:shop' %}" class="block text-left text-gray-600 hover:text-black hover:font-semibold transition duration-300 mb-1">HOME</a>
+              <a href="{% url 'main:shop' %}#shoes_display_card" class="block text-left text-gray-600 hover:text-black hover:font-semibold transition duration-300 mb-1">SHOP</a>
 
               {% if user.is_authenticated %}
                   <a href="{% url 'main:logout' %}" class="block text-center bg-black hover:bg-[#615f5d] text-white font-bold py-3 px-6 rounded transition duration-300">Log Out</a>
