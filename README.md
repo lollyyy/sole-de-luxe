@@ -174,3 +174,30 @@ Kegunaan:
 - Pertama untuk mengimplementasikan edit dan delete, saya lakuka dengan membuat function edit_shoes dan delete_shoes di file views lalu melakukan routing pada url path
 - Selanjutnya untuk kustomisasi design saya mengintegrasikan Tailwind ke dalam proyek ini, saya melakukan modifikasi pada file base.html agar dapat menghubungkan template Django dengan Tailwind serta menyesuaikan tampilan untuk berbagai perangkat (mobile). Lalu, saya melakukan penyesuaian pada setiap template sesuai dengan tema aplikasi yang saya inginkan. Setiap produk dalam daftar produk akan ditampilkan di shoes_display_card.html beserta model yang relevan. Pada setiap kartu produk, saya menambahkan tombol untuk mengedit dan menghapus entri di bagian bawah kartu agar pengguna lebih mudah melakukan penyesuaian. Terakhir, untuk menambahkan navigasi bar pada website, saya membuat file baru dengan nama navbar.html. Desain navigasi bar dibagi menjadi dua bagian, yaitu untuk desktop dan mobile (dengan tombol burger), lalu saya menyertakan navbar ini pada semua template halaman yang diinginkan.
 </details>
+
+<details>
+
+# Tugas 6
+
+## 1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+JavaScript memiliki beberapa manfaat dalam pengembangan aplikasi web, contohnya dalam menambahkan interaktivitas dan efek visual, memproses data di sisi klien untuk mengurangi beban server, serta mendukung komunikasi asinkron dengan server menggunakan AJAX tanpa memuat ulang halaman. Selain itu, JavaScript memungkinkan pengembangan antarmuka pengguna yang dinamis melalui framework seperti React dan Angular, serta memfasilitasi akses ke berbagai API untuk integrasi fungsionalitas tambahan.
+
+## 2. Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+Fungsi dari penggunaan `await` saat menggunakan `fetch()` adalah untuk menunggu hasil dari permintaan HTTP sebelum melanjutkan eksekusi kode. Dengan `await`, eksekusi akan terhenti sampai `fetch()` menyelesaikan permintaannya dan mengembalikan respons. Ini membuat kode lebih mudah dibaca dan memungkinkan penanganan hasil dengan cara yang lebih terstruktur.
+
+Jika kita tidak menggunakan `await`, `fetch()` akan mengembalikan sebuah *Promise* segera setelah dipanggil, tanpa menunggu respons dari server. Ini berarti eksekusi kode akan terus berjalan, dan kita mungkin mencoba mengakses data dari respons yang belum ada, yang dapat menyebabkan kesalahan atau perilaku yang tidak diinginkan. Selain itu, kita perlu menangani *Promise* secara eksplisit menggunakan `.then()` dan `.catch()` untuk mengelola hasil dan kesalahan.
+
+## 3. Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+Kita perlu menggunakan decorator @csrf_exempt pada view yang akan digunakan untuk AJAX POST karena:
+- Keamanan CSRF: Secara default, Django melindungi aplikasi dari serangan Cross-Site Request Forgery (CSRF) dengan memerlukan token CSRF pada setiap permintaan POST. Token ini harus disertakan dalam permintaan untuk memverifikasi bahwa permintaan tersebut berasal dari pengguna yang sah.
+- Permintaan AJAX: Saat menggunakan AJAX, seringkali kita tidak mengirimkan token CSRF secara otomatis. Jika kita tidak menggunakan decorator @csrf_exempt, Django akan menolak permintaan POST yang tidak menyertakan token CSRF yang valid, sehingga mengakibatkan kesalahan 403 Forbidden.
+- Penggunaan yang Aman: Dengan menggunakan @csrf_exempt, kita mengizinkan view tertentu untuk menerima permintaan POST tanpa memerlukan token CSRF, tetapi harus diingat bahwa ini dapat mengurangi keamanan. Oleh karena itu, sebaiknya digunakan dengan hati-hati, dan hanya pada endpoint yang dianggap aman.
+
+## 4. Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+Pembersihan data input pengguna sebaiknya dilakukan di backend karena beberapa alasan penting. Pertama, keamanan menjadi faktor utama, karena data dari frontend dapat dimanipulasi oleh pengguna yang tidak bertanggung jawab, sehingga pembersihan di backend mencegah data berbahaya masuk ke server. Selain itu, backend mampu menerapkan validasi yang lebih kompleks dan ketat, menjaga integritas data dengan memastikan bahwa data yang disimpan di database memenuhi kriteria tertentu. Pembersihan di backend juga mendukung berbagai klien, sehingga memastikan semua data, terlepas dari sumbernya, diproses secara konsisten. Terakhir, backend dapat memberikan umpan balik yang lebih akurat tentang kesalahan dan cara memperbaikinya, meningkatkan pengalaman pengguna secara keseluruhan.
+
+## 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+Pertama, saya membuat permintaan AJAX GET untuk mengambil data produk dari pengguna yang sudah login, lalu menampilkannya dalam kartu produk yang di-render secara dinamis di halaman utama. Saya membuat fungsi untuk menambahkan produk di views dan menyesuaikan main.html agar sesuai dengan tampilan kartu, sementara card.html tidak digunakan lagi.
+
+Selanjutnya, saya menambahkan tombol yang membuka modal berisi formulir untuk menambah produk. Setelah formulir disubmit menggunakan AJAX POST, modal akan tertutup otomatis, formulir di-reset, dan halaman akan menampilkan data terbaru tanpa reload. Untuk keamanan, saya menggunakan token CSRF pada setiap permintaan POST untuk mencegah serangan CSRF. Saya juga menambahkan jalur di urls.py untuk mengarahkan permintaan POST ke view yang menyimpan data produk ke dalam database. Setelah formulir berhasil disubmit, modal akan tertutup, formulir di-reset, dan halaman diperbarui tanpa reload. Pesan "this input cannot be blank" hanya muncul untuk input non-AJAX dengan kode <img src=x onerror="alert('XSS!');"> dan belum berlaku untuk input AJAX, yang memerlukan pemahaman JavaScript yang lebih mendalam.
+</details>

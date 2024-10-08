@@ -1,34 +1,24 @@
-{% extends 'base.html' %}
-
-{% block meta %}
-<title>Shoes Display</title>
-{% endblock meta %}
-
-{% block content %}
-<div id="shoes_display_card" class="bg-white shadow-lg rounded-lg overflow-hidden mb-8">
-
-<div class="bg-white shadow-lg rounded-lg overflow-hidden mb-8"> 
+<div id="shoes_display_card" class="bg-white shadow-lg rounded-lg overflow-hidden mb-8 w-full max-w-md">
   <!-- Gambar Sepatu -->
-  <img src="https://images.squarespace-cdn.com/content/v1/5c097af1266c0722534ec063/5a41d9b7-2261-4b6e-897f-7588ff65b46a/IMG_8809+4.JPG?format=1500w" class="w-full h-[30rem] object-cover"> 
-
+  <img src="https://images.squarespace-cdn.com/content/v1/5c097af1266c0722534ec063/5a41d9b7-2261-4b6e-897f-7588ff65b46a/IMG_8809+4.JPG?format=1500w" class="w-full h-[30rem] object-cover">
+  
   <!-- Informasi Sepatu -->
-  <div class="p-2 text-left"> 
-    <h3 class="font-light text-xl mb-1">{{ shoes_entry.name }}</h3> 
-    <p class="text-gray-600 text-sm mb-1">Price: ${{ shoes_entry.price }}</p> 
-    <p class="text-gray-600 text-sm mb-1">Color: {{ shoes_entry.color }}</p> 
-    <p class="text-gray-600 text-sm mb-1">Condition: {{ shoes_entry.condition }}</p> 
-    <p class="text-gray-600 text-sm mb-1">Release Year: {{ shoes_entry.release_year }}</p> 
-    <p class="text-gray-700 text-sm">{{ shoes_entry.description }}</p> 
-    
-    <!-- Edit dan Delete -->
-    <div class="flex justify-center space-x-4 mt-4">
-      <a href="{% url 'main:edit_shoes' shoes_entry.pk %}" class="bg-black hover:bg-gray-700 text-white rounded-sm p-2 transition duration-300 shadow-md w-full max-w-[120px] text-center">
-          Edit
-      </a>
-      <a href="{% url 'main:delete_shoes' shoes_entry.pk %}" class="bg-white border border-black hover:bg-gray-200 text-black rounded-sm p-2 transition duration-300 shadow-md w-full max-w-[120px] text-center">
-          Delete
-      </a>
-    </div>
+  <div class="p-4">
+      <h3 class="font-light text-xl mb-1">{{ shoes_entry.name }}</h3>
+      <p class="text-gray-600 text-sm mb-1">Price: ${{ shoes_entry.price }}</p>
+      <p class="text-gray-600 text-sm mb-1">Color: {{ shoes_entry.color }}</p>
+      <p class="text-gray-600 text-sm mb-1">Condition: {{ shoes_entry.condition }}</p>
+      <p class="text-gray-600 text-sm mb-1">Release Year: {{ shoes_entry.release_year }}</p>
+      <p class="text-gray-700 text-sm">{{ shoes_entry.description }}</p>
+      
+      <!-- Edit dan Delete -->
+      <div class="flex justify-center space-x-4 mt-4">
+          <a href="{% url 'main:edit_shoes' shoes_entry.pk %}" class="bg-black hover:bg-gray-700 text-white rounded-sm p-2 transition duration-300 shadow-md w-full max-w-[120px] text-center">
+              Edit
+          </a>
+          <a href="{% url 'main:delete_shoes' shoes_entry.pk %}" class="bg-white border border-black hover:bg-gray-200 text-black rounded-sm p-2 transition duration-300 shadow-md w-full max-w-[120px] text-center">
+              Delete
+          </a>
+      </div>
   </div>
-</div> 
-{% endblock content %}
+</div>

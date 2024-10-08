@@ -11,18 +11,18 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.utils.html import strip_tags
 
 
 # Create your views here.
 @login_required(login_url='/login')
 def show_main(request):
-    shoes_entries = ShoesEntry.objects.filter(user=request.user)
-
     context = {
         'name': request.user.username,
         'class': 'PBP B',
         'npm': '2306245863',
-        'shoes_entries': shoes_entries,
         'last_login': request.COOKIES['last_login'],
     }
 
@@ -41,17 +41,11 @@ def create_shoes_entry(request):
     return render(request, "create_shoes_entry.html", context)
 
 def show_xml(request):
-    data = ShoesEntry.objects.all()
-
-def show_xml(request):
-    data = ShoesEntry.objects.all()
+    data = ShoesEntry.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
 
 def show_json(request):
-    data = ShoesEntry.objects.all()
-
-def show_json(request):
-    data = ShoesEntry.objects.all()
+    data = ShoesEntry.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def show_xml_by_id(request, id):
@@ -88,6 +82,8 @@ def login_user(request):
         response = HttpResponseRedirect(reverse("main:show_main"))
         response.set_cookie('last_login', str(datetime.datetime.now()))
         return response
+      else:
+        messages.error(request, "Invalid username or password. Please try again.")
 
    else:
       form = AuthenticationForm(request)
@@ -122,3 +118,28 @@ def delete_shoes(request, id):
     shoes.delete()
     # Kembali ke halaman awal
     return HttpResponseRedirect(reverse('main:show_main'))
+
+@csrf_exempt
+@require_POST
+def add_shoes_entry_ajax(request):
+    name = strip_tags(request.POST.get("name"))
+    price = request.POST.get("price")
+    description = strip_tags(request.POST.get("description"))
+    color = strip_tags(request.POST.get("color"))
+    condition = strip_tags(request.POST.get("condition"))
+    release_year = request.POST.get("release_year")
+    user = request.user
+
+    new_shoes = ShoesEntry(
+        name=name,
+        price=price,
+        description=description,
+        color=color,
+        condition=condition,
+        release_year=release_year,
+        user=user
+        
+    )
+    new_shoes.save()
+
+    return HttpResponse(b"CREATED", status=201)
