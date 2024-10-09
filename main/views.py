@@ -138,7 +138,6 @@ def add_shoes_entry_ajax(request):
         condition=condition,
         release_year=release_year,
         user=user
-        
     )
     new_shoes.save()
 

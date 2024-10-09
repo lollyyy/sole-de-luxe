@@ -3,9 +3,10 @@
 
 {% block meta %}
 <title>Sole de Luxe</title>
-<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+
 <style>
     body {
         font-family: 'Merriweather', serif;
@@ -38,8 +39,8 @@
         <a href="{% url 'main:create_shoes_entry' %}" class="bg-white border border-black hover:bg-gray-200 text-black rounded-sm p-2 transition duration-300 shadow-md w-full max-w-[120px] text-center">
             Add Shoes
         </a>
-        <button id="showModalBtn" class="bg-black hover:bg-gray-700 text-white rounded-sm p-2 transition duration-300 shadow-md w-full max-w-[180px] text-center">
-          Add Shoes AJAX
+        <button data-modal-target="crudModal" data-modal-toggle="crudModal" class="bg-black hover:bg-gray-700 text-white rounded-sm p-2 transition duration-300 shadow-md w-full max-w-[180px] text-center" onclick="showModal();">
+                Add Shoes AJAX
         </button>
     </div>
 
@@ -115,8 +116,10 @@
             </div>
             <!-- Modal footer -->
             <div class="flex justify-center p-6 border-t border-gray-200 rounded-b">
-                <button type="button" id="submitShoesEntry" class="bg-black text-white font-semibold px-6 py-2 rounded-none hover:bg-gray-800 transition duration-300 ease-in-out w-full max-w-[300px]">
-                    Add Shoes
+                <button type="button" class="bg-white hover:bg-white text-white font-bold py-2 px-4 rounded-lg" id="cancelButton"> </button>                  <!-- yg warna putih samping nya add shoes -->
+                <button type="submit" id="submitShoesEntry" form="shoesEntryForm" class="bg-black text-white font-semibold px-6 py-2 rounded-none hover:bg-gray-800 transition duration-300 ease-in-out w-full max-w-[300px]">Add Shoes</button>      
+                <!-- <button type="button" id="submitShoesEntry" class="bg-black text-white font-semibold px-6 py-2 rounded-none hover:bg-gray-800 transition duration-300 ease-in-out w-full max-w-[300px]"> -->
+                    <!-- Add Shoes -->
                 </button>
             </div>
         </div>
@@ -128,111 +131,61 @@
 </div>
 
 <script>
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
+  function addShoesEntry() {
+      fetch("{% url 'main:add_shoes_entry_ajax' %}", {
+          method: "POST",
+          body: new FormData(document.querySelector('#shoesEntryForm')),
+          headers: {
+              "X-CSRFToken": "{{ csrf_token }}",
+          }
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              refreshShoesEntries(); // Perbarui daftar produk
+              hideModal(); // Tutup modal
+              document.getElementById("shoesEntryForm").reset(); // Kosongkan form
+          } else {
+              console.error("Failed to add shoes:", data.error);
+          }
+      })
+      .catch(error => console.error("Error:", error));
 
-const csrftoken = getCookie('csrftoken');
+      return false; // Mencegah reload
+  }
 
-function showLoading() {
-    document.getElementById('loadingIndicator').classList.remove('hidden');
-}
+  async function getShoesEntries() {
+    return fetch("{% url 'main:show_json' %}").then((res) => res.json());
+  }
 
-function hideLoading() {
-    document.getElementById('loadingIndicator').classList.add('hidden');
-}
-
-async function addShoesEntry() {
-    showLoading();
-    try {
-        const form = document.getElementById('shoesEntryForm');
-        const formData = new FormData(form);
-        const response = await fetch("{% url 'main:add_shoes_entry_ajax' %}", {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-CSRFToken": csrftoken,
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
-        const result = await response.json();
-        if (result.status === 'success') {
-            await refreshShoesEntries();
-            form.reset();
-            hideModal();
-        } else {
-            alert(result.message || 'An error occurred while adding the shoes entry.');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred while adding the shoes entry. Please try again.');
-    } finally {
-        hideLoading();
-    }
-}
-
-async function getShoesEntries() {
-    showLoading();
-    try {
-        const response = await fetch("{% url 'main:show_json' %}");
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred while fetching shoes entries. Please refresh the page.');
-        return [];
-    } finally {
-        hideLoading();
-    }
-}
-
-async function refreshShoesEntries() {
-    const shoesEntriesContainer = document.getElementById("shoes_entry_cards");
-    shoesEntriesContainer.innerHTML = "";
-    shoesEntriesContainer.className = "";
+  async function refreshShoesEntries() {
+    document.getElementById("shoes_entry_cards").innerHTML = "";
+    document.getElementById("shoes_entry_cards").className = "";
     const shoesEntries = await getShoesEntries();
     let htmlString = "";
     let classNameString = "";
 
-    if (!shoesEntries || shoesEntries.length === 0) {
-        classNameString = "flex flex-col items-center justify-center min-h-[24rem] p-6";
-        htmlString = `
-            <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
-                <img src="/static/image/very-sad.png" alt="Sad face" class="w-32 h-32 mb-4"/>
-                <p class="text-center text-gray-600 mt-4">Sorry, the shoes you are looking for are unavailable.</p>
-            </div>
-        `;
+    if (shoesEntries.length === 0) {
+      classNameString = "flex flex-col items-center justify-center min-h-[24rem] p-6";
+      htmlString = `
+        <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+          <img src="{% static 'image/no-flowers.png' %}" alt="No flowers" class="w-60 h-60 mb-4"/>
+          <p class="text-center text-gray-600 mt-4">Belum ada collection flowers pada akun Peonies mu.</p>
+        </div>
+      `;
     } else {
-        classNameString = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full";
-        shoesEntries.forEach((item) => {
+      classNameString = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6";
+      shoesEntries.forEach((item) => {
             const name = DOMPurify.sanitize(item.fields.name);
             const description = DOMPurify.sanitize(item.fields.description);
             const color = DOMPurify.sanitize(item.fields.color);
             const condition = DOMPurify.sanitize(item.fields.condition);
-            const price = parseFloat(item.fields.price).toFixed(2);
-            htmlString += `
-            <div id="shoes_display_card" class="bg-white shadow-lg rounded-lg overflow-hidden mb-8 w-full">
+        htmlString += `
+        <div id="shoes_display_card" class="bg-white shadow-lg rounded-lg overflow-hidden mb-8 w-full">
                 <img src="https://images.squarespace-cdn.com/content/v1/5c097af1266c0722534ec063/5a41d9b7-2261-4b6e-897f-7588ff65b46a/IMG_8809+4.JPG?format=1500w" class="w-full h-[30rem] object-cover">
                 <div class="p-4">
                     <h3 class="font-light text-xl mb-1">${name}</h3>
-                    <p class="text-gray-600 text-sm mb-1">Price: $${price}</p>
+                    <p class="text-gray-600 text-sm mb-1">Price: $${item.fields.price}</p>
                     <p class="text-gray-600 text-sm mb-1">Color: ${color}</p>
                     <p class="text-gray-600 text-sm mb-1">Condition: ${condition}</p>
                     <p class="text-gray-600 text-sm mb-1">Release Year: ${item.fields.release_year}</p>
@@ -246,38 +199,40 @@ async function refreshShoesEntries() {
                         </a>
                     </div>
                 </div>
-            </div>
-            `;
-        });
+          </div>
+        `;
+      });
     }
-    shoesEntriesContainer.className = classNameString;
-    shoesEntriesContainer.innerHTML = htmlString;
-}
 
-refreshShoesEntries();
+    document.getElementById("shoes_entry_cards").className = classNameString;
+    document.getElementById("shoes_entry_cards").innerHTML = htmlString;
+  }
 
-const modal = document.getElementById('crudModal');
-const modalContent = document.getElementById('crudModalContent');
+  refreshShoesEntries();
 
-function showModal() {
-    modal.classList.remove('hidden');
+  const modal = document.getElementById('crudModal');
+  const modalContent = document.getElementById('crudModalContent');
+
+  function showModal() {
+    modal.classList.remove('hidden'); 
     setTimeout(() => {
-        modalContent.classList.remove('opacity-0', 'scale-95');
-        modalContent.classList.add('opacity-100', 'scale-100');
-    }, 50);
-}
+      modalContent.classList.remove('opacity-0', 'scale-95');
+      modalContent.classList.add('opacity-100', 'scale-100');
+    }, 50); 
+  }
 
-function hideModal() {
+  function hideModal() {
     modalContent.classList.remove('opacity-100', 'scale-100');
     modalContent.classList.add('opacity-0', 'scale-95');
     setTimeout(() => {
-        modal.classList.add('hidden');
-    }, 150);
-}
+      modal.classList.add('hidden');
+    }, 150); 
+  }
 
-document.getElementById("closeModalBtn").addEventListener("click", hideModal);
-document.getElementById("showModalBtn").addEventListener("click", showModal);
-document.getElementById("submitShoesEntry").addEventListener("click", addShoesEntry);
-
+  // listeners
+  document.getElementById("cancelButton").addEventListener("click", hideModal);
+  document.getElementById("closeModalBtn").addEventListener("click", hideModal);
+  
+  document.getElementById("shoesEntryForm").addEventListener("submit", addShoesEntry);
 </script>
 {% endblock content %}
