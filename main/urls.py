@@ -4,7 +4,7 @@ from main.views import register
 from main.views import login_user
 from main.views import logout_user
 from main.views import edit_shoes
-from main.views import delete_shoes
+from main.views import delete_shoes, create_shoes_flutter
 
 app_name = 'main'
 
@@ -22,4 +22,5 @@ urlpatterns = [
     path('edit-shoes/<uuid:id>', edit_shoes, name='edit_shoes'),
     path('delete/<uuid:id>', delete_shoes, name='delete_shoes'),
     path('create-shoes-entry-ajax', add_shoes_entry_ajax, name='add_shoes_entry_ajax'),
+    path('create-flutter/', create_shoes_flutter, name='create_shoes_flutter'),
 ]

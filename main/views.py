@@ -14,6 +14,11 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.utils.html import strip_tags
+from django.http import HttpResponse
+from django.core import serializers
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 # Create your views here.
@@ -45,7 +50,7 @@ def show_xml(request):
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
 
 def show_json(request):
-    data = ShoesEntry.objects.filter(user=request.user)
+    data = ShoesEntry.objects.all()  
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def show_xml_by_id(request, id):
@@ -142,3 +147,21 @@ def add_shoes_entry_ajax(request):
     new_shoes.save()
 
     return HttpResponse(b"CREATED", status=201)
+
+@csrf_exempt
+def create_shoes_flutter(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+        new_shoes = ShoesEntry.objects.create(
+            user=request.user,
+            shoes=data["shoes"],
+            shoes_intensity=int(data["shoes_intensity"]),
+            feelings=data["feelings"]
+        )
+
+        new_shoes.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
