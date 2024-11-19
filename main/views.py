@@ -49,8 +49,9 @@ def show_xml(request):
     data = ShoesEntry.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
 
+# @login_required
 def show_json(request):
-    data = ShoesEntry.objects.all()  
+    data = ShoesEntry.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def show_xml_by_id(request, id):
@@ -151,17 +152,23 @@ def add_shoes_entry_ajax(request):
 @csrf_exempt
 def create_shoes_flutter(request):
     if request.method == 'POST':
-
-        data = json.loads(request.body)
-        new_shoes = ShoesEntry.objects.create(
-            user=request.user,
-            shoes=data["shoes"],
-            shoes_intensity=int(data["shoes_intensity"]),
-            feelings=data["feelings"]
-        )
-
-        new_shoes.save()
-
-        return JsonResponse({"status": "success"}, status=200)
+        try:
+            data = json.loads(request.body)
+            new_shoes = ShoesEntry.objects.create(
+                user=request.user,
+                name=data["name"],           
+                price=int(data["price"]),   
+                description=data["description"],
+                color=data["color"],
+                condition=data["condition"],
+                release_year=int(data["release_year"]) 
+            )
+            new_shoes.save()
+            return JsonResponse({"status": "success"}, status=200)
+        except Exception as e:
+            return JsonResponse({
+                "status": "error",
+                "message": str(e)
+            }, status=400)
     else:
-        return JsonResponse({"status": "error"}, status=401)
+        return JsonResponse({"status": "error", "message": "Invalid method"}, status=401)
